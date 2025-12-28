@@ -2055,7 +2055,6 @@ jobs:
           mv web "${dir_name}" && tar czf "${dir_name}".tar.gz "${dir_name}"
           sha256sum "${dir_name}".tar.gz
           popd
-
       - name: Publish web
         if: env.UPLOAD_ARTIFACT == 'true'
         uses: softprops/action-gh-release@v1
@@ -2064,10 +2063,11 @@ jobs:
           tag_name: ${{ env.TAG_NAME }}
           files: |
             flutter/build/rustdesk-${{ env.VERSION }}-${{ env.RELEASE_NAME }}.tar.gz
-            - name: Upload Full Windows Build
+
+      - name: Upload Full Windows Build
         uses: actions/upload-artifact@v4
         with:
-     - name: rustdesk-full-windows
+          name: rustdesk-full-windows
           path: |
             flutter/build/windows/x64/runner/Release/*.exe
             flutter/build/windows/x64/runner/Release/*.dll
